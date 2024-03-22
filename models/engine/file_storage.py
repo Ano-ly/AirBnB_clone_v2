@@ -52,4 +52,11 @@ class FileStorage:
     def delete(self, obj=None):
         """Deletes stuff"""
 
+        if obj is not None:
+            corpse_id = obj.id
+            for keyy in FileStorage.__objects.keys():
+                if corpse_id in keyy:
+                    del (FileStorage.__objects[keyy])
+                    break
+            self.save
         pass
