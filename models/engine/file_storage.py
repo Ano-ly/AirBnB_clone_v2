@@ -10,7 +10,12 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        return FileStorage.__objects
+        if cls is None:
+            return FileStorage.__objects
+        else:
+            spec_dict = {ke: val for ke, val in FileStorage.__objects.items()
+                         if type(val) is cls}
+            return (spec_dict)
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -59,4 +64,3 @@ class FileStorage:
                     del (FileStorage.__objects[keyy])
                     break
             self.save
-        pass
