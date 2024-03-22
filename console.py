@@ -135,6 +135,9 @@ class HBNBCommand(cmd.Cmd):
             else:
                 while (val.count('"') > 0):
                     val = val.split('"')[1]
+                if '_' in val:
+                    un_pure = val
+                    val = un_pure.replace('_', ' ')
             attr_val[1] = val
             args_dic.update({attr_val[0]: attr_val[1]})
         new_instance = HBNBCommand.classes[args_list[0]](**args_dic)
