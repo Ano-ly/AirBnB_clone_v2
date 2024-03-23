@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
             attr_val[1] = val
             args_dic.update({attr_val[0]: attr_val[1]})
         new_instance = HBNBCommand.classes[args_list[0]](**args_dic)
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
         storage.save()
 
