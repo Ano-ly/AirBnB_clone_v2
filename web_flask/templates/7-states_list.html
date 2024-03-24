@@ -6,7 +6,7 @@
     <BODY>
         <H1>States</H1>
         <UL>
-        {% for v in dics|sort(attribute='name') %}
+        {% for v in dics|sort(attribute='name', case_sensitive=True) %}
            <LI>{{ v.id|e }}: <B>{{ v.name|e }}</B></LI>
         {% endfor %}
         </UL>
