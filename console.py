@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+from os import environ
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -94,6 +95,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, command):
         """ Method to exit the HBNB console"""
+        if environ['HBNB_TYPE_STORAGE'] == "db":
+            storage.reload()
         exit()
 
     def help_quit(self):
@@ -225,12 +228,24 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
+            if environ['HBNB_TYPE_STORAGE'] == 'db':
+                for k, v in storage.all(args).items():
+                    if '_sa_instance_state' in v.__dict__.keys():
+                        del (v.__dict__['_sa_instance_state'])
                     print_list.append(str(v))
+            elif environ['HBNB_TYPE_STORAGE'] == 'file':
+                for k, v in storage.all().items():
+                    if k.split('.')[0] == args:
+                        print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            if environ['HBNB_TYPE_STORAGE'] == 'file':
+                for k, v in storage.all().items():
+                    print_list.append(str(v))
+            elif environ['HBNB_TYPE_STORAGE'] == 'db':
+                for k, v in storage.all().items():
+                    if '_sa_instance_state' in v.__dict__.keys():
+                        del (v.__dict__['_sa_instance_state'])
+                    print_list.append(str(v))
 
         print(print_list)
 
