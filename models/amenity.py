@@ -9,9 +9,3 @@ class Amenity(BaseModel, Base):
 
     __tablename__ = "amenities"
     name = Column(String(128), nullable=False)
-    place_amenity = Table('association',
-                          Base.metadata,
-                          Column('place_id', ForeignKey("places.id"),
-                                 nullable=False),
-                          Column('amenity_id', ForeignKey("amenities.id"),
-                                 nullable=False))

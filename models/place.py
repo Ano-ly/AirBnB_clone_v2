@@ -4,8 +4,17 @@ from models.base_model import BaseModel, Base
 from models.review import Review
 from models.engine.file_storage import FileStorage
 from models.amenity import Amenity
-from sqlalchemy import Column, String, Float, ForeignKey, Integer
+from sqlalchemy import Column, String, Float, Table, ForeignKey, Integer
 from sqlalchemy.orm import relationship
+
+place_amenity = Table('place_amenity',
+                      Base.metadata,
+                      Column('place_id', ForeignKey("places.id"),
+                             primary_key=True,
+                             nullable=False),
+                      Column('amenity_id', ForeignKey("amenities.id"),
+                             primary_key=True,
+                             nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -22,8 +31,8 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     reviews = relationship("Review", cascade="all, delete-orphan")
-    amenities = relationship("Amenity", secondary="place_amenity",
-                             viewonly=False)
+    amenities = relationship("Amenity", secondary=place_amenity,
+                             viewonly=False, backref="amenities")
     amenity_ids = []
 
     @property
