@@ -9,6 +9,8 @@ from models.city import City
 """
  Objects creations
 """
+print(type(storage))
+
 state_1 = State(name="California")
 print("New state: {}".format(state_1))
 state_1.save()

@@ -15,13 +15,13 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
 
     if environ["HBNB_TYPE_STORAGE"] == "db":
-    	cities = relationship("City", cascade="all, delete-orphan")
-
+        cities = relationship("City", cascade="all, delete-orphan")
     else:
         @property
         def cities(self):
             """getter attribute. returns child states"""
             my_dict = storage.all()
             new_dict = {k: v for k, v in my_dict.items() if "City" in k}
-            new_dict2 = {k: v for k, v in new_dict.items() if v.state_id == self.id}
+            new_dict2 = {k: v for k, v in new_dict.items()
+                         if v.state_id == self.id}
             return (new_dict2)

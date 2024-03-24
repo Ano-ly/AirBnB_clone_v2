@@ -34,7 +34,6 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", cascade="all, delete-orphan")
     amenity_ids = []
 
-
     @property
     def reviews(self):
         """getter attribute. returns child places"""
@@ -47,6 +46,7 @@ class Place(BaseModel, Base):
 
     amenities = relationship("Amenity", secondary=place_amenity,
                              viewonly=False, backref="amenities")
+
     @property
     def amenities(self):
         """getter attribute. returns amenity places"""
