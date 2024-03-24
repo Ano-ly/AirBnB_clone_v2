@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-from models import storage
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
@@ -19,8 +18,9 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
+            from models import storage
             """getter attribute. returns child states"""
-            my_dict = storage.all()
+            my_dict = models.storage.all()
             new_dict = {k: v for k, v in my_dict.items() if "City" in k}
             new_dict2 = {k: v for k, v in new_dict.items()
                          if v.state_id == self.id}

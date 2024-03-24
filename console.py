@@ -233,12 +233,12 @@ class HBNBCommand(cmd.Cmd):
                     if '_sa_instance_state' in v.__dict__.keys():
                         del (v.__dict__['_sa_instance_state'])
                     print_list.append(str(v))
-            elif environ['HBNB_TYPE_STORAGE'] == 'file':
+            else:
                 for k, v in storage.all().items():
                     if k.split('.')[0] == args:
                         print_list.append(str(v))
         else:
-            if environ['HBNB_TYPE_STORAGE'] == 'file':
+            if environ['HBNB_TYPE_STORAGE'] != 'db':
                 for k, v in storage.all().items():
                     print_list.append(str(v))
             elif environ['HBNB_TYPE_STORAGE'] == 'db':
