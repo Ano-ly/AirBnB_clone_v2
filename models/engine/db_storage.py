@@ -33,8 +33,8 @@ class DBStorage():
 
         my_session = self.__session()
         dict_obj = {}
+        list_res = []
         if cls is None:
-            list_res = []
             list_res.append(my_session.query(City))
             list_res.append(my_session.query(State))
             list_res.append(my_session.query(User))
@@ -47,17 +47,19 @@ class DBStorage():
                     dict_obj.update({str: obj})
             print(list_res)
         else:
-            if (cls == "User"):
+            print(cls)
+            list_res = []
+            if (cls == "User" or cls is User):
                 list_res = my_session.query(User)
-            if (cls == "Review"):
+            if (cls == "Review" or cls is User):
                 list_res = my_session.query(Review)
-            if (cls == "State"):
+            if (cls == "State" or cls is State):
                 list_res = my_session.query(State)
-            if (cls == "City"):
+            if (cls == "City" or cls is City):
                 list_res = my_session.query(City)
-            if (cls == "Amenity"):
+            if (cls == "Amenity" or cls is Amenity):
                 list_res = my_session.query(Amenity)
-            if (cls == "Place"):
+            if (cls == "Place" or cls is Place):
                 list_res = my_session.query(Place)
             for obj in list_res:
                 str = "{}.{}". format(obj.__class__.__name__, obj.id)

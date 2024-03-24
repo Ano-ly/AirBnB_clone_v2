@@ -6,6 +6,7 @@ from models.engine.file_storage import FileStorage
 from models.amenity import Amenity
 from sqlalchemy import Column, String, Float, Table, ForeignKey, Integer
 from sqlalchemy.orm import relationship
+from os import environ
 
 place_amenity = Table('place_amenity',
                       Base.metadata,
@@ -31,27 +32,33 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     reviews = relationship("Review", cascade="all, delete-orphan")
-    amenities = relationship("Amenity", secondary=place_amenity,
-                             viewonly=False, backref="amenities")
     amenity_ids = []
+
 
     @property
     def reviews(self):
-        my_list = []
         """getter attribute. returns child places"""
+        my_list = []
         my_dict = FileStorage.all(Review)
         new_dict = {k: v for k, v in my_dict if v.place_id == self.id}
         for item in new_dict.values():
             my_list.append(item)
         return (my_list)
 
+    amenities = relationship("Amenity", secondary=place_amenity,
+                             viewonly=False, backref="amenities")
     @property
     def amenities(self):
         """getter attribute. returns amenity places"""
-        return (self.amenity_ids)
+        my_list = []
+        my_dict = FileStorage.all(Amenity)
+        new_dict = {k: v for k, v in my_dict if v.id in self.amenity_ids}
+        for item in new_dict.values():
+            my_list.append(item)
+        return (my_list)
 
-    @amenities.setter
-    def append(self, amenityy):
-        """setter attribute, adds amenity to amenity_ids list"""
-        if type(amenityy) is Amenity:
-            self.amenity_ids.append(amenityy)
+        @amenities.setter
+        def append(self, amenityy):
+            """setter attribute, adds amenity to amenity_ids list"""
+            if type(amenityy) is Amenity:
+                self.amenity_ids.append(amenityy.id)

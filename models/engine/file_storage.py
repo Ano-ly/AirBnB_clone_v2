@@ -63,4 +63,8 @@ class FileStorage:
                 if corpse_id in keyy:
                     del (FileStorage.__objects[keyy])
                     break
-            self.save
+            self.save()
+
+    def close(self):
+        """Deserialises json file"""
+        self.reload()
