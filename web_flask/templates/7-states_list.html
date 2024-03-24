@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>States</H1>
+        <UL>
+        {% for k, v in dics.iterit|sort(attr=v.name) %}
+           <LI>{{ v.id|e }}: <B>{{ v.name|e }}</B></LI>
+        {% endfor %}
+        </UL>
+     </BODY>
+</HTML>
