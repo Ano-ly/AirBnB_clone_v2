@@ -23,5 +23,5 @@ class State(BaseModel, Base):
             my_dict = storage.all()
             new_dict = {k: v for k, v in my_dict.items() if "City" in k}
             new_list = {v for v in new_dict.values()
-                         if v.state_id == self.id}
+                        if v.state_id == self.id}
             return (new_list)
