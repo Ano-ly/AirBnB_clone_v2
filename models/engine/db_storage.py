@@ -49,7 +49,6 @@ class DBStorage():
                     dict_obj.update({str: obj})
             print(list_res)
         else:
-            print(cls)
             list_res = []
             if (cls == "User" or cls is User):
                 list_res = self.__session.query(User)
