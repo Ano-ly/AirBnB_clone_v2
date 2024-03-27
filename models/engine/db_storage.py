@@ -12,10 +12,10 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
-user = environ['HBNB_MYSQL_USER']
-passw = environ['HBNB_MYSQL_PWD']
-hos = environ['HBNB_MYSQL_HOST']
-dabase = environ['HBNB_MYSQL_DB']
+user = environ.get('HBNB_MYSQL_USER')
+passw = environ.get('HBNB_MYSQL_PWD')
+hos = environ.get('HBNB_MYSQL_HOST')
+dabase = environ.get('HBNB_MYSQL_DB')
 
 
 class DBStorage():

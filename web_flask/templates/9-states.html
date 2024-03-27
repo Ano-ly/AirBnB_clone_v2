@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        {% if det == 0 %}
+        {% if st != 0 -%}
+        <H1>State: {{ st.name }}</H1>
+        <H3>Cities:</H3>
+        <UL>
+        {%- for c in dicc|sort(attribute='name', case_sensitive=True) if c.state_id == st.id %}
+            <LI>{{ c.id|e }}: <B>{{ c.name|e }}</B></LI>
+        {% endfor -%}
+        </UL>
+        {%- else -%}
+        <H1>Not found!</H1>
+        {% endif %}
+        {% else %}
+        <H1>States</H1>
+        <UL>
+        {% for v in dics|sort(attribute='name', case_sensitive=True) %}
+            <LI>{{ v.id|e }}: <B>{{ v.name|e }}</B></LI>
+        {% endfor -%}
+        </UL>
+        {% endif %}
+    </BODY>
+</HTML>

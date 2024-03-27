@@ -3,7 +3,7 @@
 or DBStorage, dependng on the value of an environmental variable"""
 from os import environ
 
-eng_type = environ['HBNB_TYPE_STORAGE']
+eng_type = environ.get('HBNB_TYPE_STORAGE')
 
 if eng_type == "db":
     from models.engine.db_storage import DBStorage

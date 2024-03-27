@@ -40,5 +40,45 @@ def display_cities():
     return (render_template('8-cities_by_states.html', dics=dics, dicc=dicc))
 
 
+@my_app.route("/states", strict_slashes=False)
+def display_states_2():
+    """Display only states"""
+    if type(models.storage) is FileStorage:
+        dic_of_states = models.storage.all(State)
+        dic_of_cities = models.storage.all(City)
+    elif type(models.storage) is DBStorage:
+        dic_of_states = models.storage.all("State")
+        dic_of_cities = models.storage.all("City")
+    dicc = [object for object in dic_of_cities.values()]
+    dics = [obj for obj in dic_of_states.values()]
+    obj = None
+    return (render_template('9-states.html', det=1, st=obj, dicc=dicc,
+            dics=dics))
+
+
+@my_app.route("/states/<id>", strict_slashes=False)
+def display_in_state(id):
+    """Display cities under state given id"""
+    if type(models.storage) is FileStorage:
+        dic_of_states = models.storage.all(State)
+        dic_of_cities = models.storage.all(City)
+    elif type(models.storage) is DBStorage:
+        dic_of_states = models.storage.all("State")
+        dic_of_cities = models.storage.all("City")
+    dicc = [object for object in dic_of_cities.values()]
+    dics = [obj for obj in dic_of_states.values()]
+    for state_obj in dic_of_states.keys():
+        print(id)
+        print(dic_of_states[state_obj].id)
+        if str(dic_of_states[state_obj].id) == str(id):
+            obj = dic_of_states[state_obj]
+            break
+    else:
+        return (render_template('9-states.html', det=0, st=0, dicc=dicc,
+                dics=dics))
+    return (render_template('9-states.html', det=0, st=obj, dicc=dicc,
+                            dics=dics))
+
+
 if __name__ == '__main__':
     my_app.run(host='0.0.0.0', port=5000)

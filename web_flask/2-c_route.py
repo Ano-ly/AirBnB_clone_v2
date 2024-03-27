@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Display different message when route /, /hbnb specified"""
+'''Display messages based on specified app route'''
 from flask import Flask
 my_app = Flask(__name__)
 
