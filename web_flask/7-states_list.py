@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""List states"""
+"""Render html page with list of states in storage."""
 
 import models
 from flask import Flask, render_template
@@ -11,13 +11,13 @@ my_app = Flask(__name__)
 
 @my_app.teardown_appcontext
 def clear_session(exception=None):
-    """Clear session"""
+    """Clear session in case of app teardown"""
     models.storage.close()
 
 
 @my_app.route("/states_list", strict_slashes=False)
 def display_states():
-    """Display states"""
+    """Display states when route is passed to Flask"""
     if type(models.storage) is FileStorage:
         dic_of_states = models.storage.all(State)
     elif type(models.storage) is DBStorage:
