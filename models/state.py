@@ -22,6 +22,6 @@ class State(BaseModel, Base):
             from models import storage
             my_dict = storage.all()
             new_dict = {k: v for k, v in my_dict.items() if "City" in k}
-            new_dict2 = {k: v for k, v in new_dict.items()
+            new_list = {v for v in new_dict.values()
                          if v.state_id == self.id}
-            return (new_dict2)
+            return (new_list)
