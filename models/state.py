@@ -18,9 +18,9 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            from models import storage
             """getter attribute. returns child states"""
-            my_dict = models.storage.all()
+            from models import storage
+            my_dict = storage.all()
             new_dict = {k: v for k, v in my_dict.items() if "City" in k}
             new_dict2 = {k: v for k, v in new_dict.items()
                          if v.state_id == self.id}
